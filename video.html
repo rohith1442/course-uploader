@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play .m3u8 File in HTML5 video player</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Create a video element -->
+  <video id="video" controls preload="none"></video>
+
+  <!-- Use hls.js to create a player and load the .m3u8 file -->
+  <script>
+    var video = document.getElementById('video');
+    if (Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource('https://vidhyatech-course.s3.ap-south-1.amazonaws.com/bbfd4aa7-6671-467b-8909-7505929ad045/playlist.m3u8?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCmFwLXNvdXRoLTEiRzBFAiEAt3WVzRdcNZ4NTnokOV%2FFccGdAenn4T15lvfzIdofPtsCIAupDgAbrtPd8smjE%2B0xHvPkpdRhyXQrOv2x2%2Ba8Cn%2FqKuQCCF4QABoMODY3MDg5MTg1OTY0Igyd8TNySHxojQkWMjkqwQLvUGkgRkFPT9jU9m869xH4dyMB8jLqUVG3gGrllacbaWu8wJcTSuDGFEPcGlY0Xje25vT%2FrAlbjs5Eu2%2FHwzSG6ZYapCYaerKMf2wAUs%2Bp%2B%2F%2FrUojl6aAy7jfYP0Ei3xFYCkHbF%2F2KHCGUdyuie7ssT6gYnjbgCGCX7F4kp7%2BWdZfDXyBYDxpqC37Ah%2B6xLCZum62L%2BgjPpmNkTBJz7HPtp6iQ9YcmiJm%2BgSfKyVPJGdl4a19dv9bYP9zYtHl1phIWSa76RiOxK2QUO5gAzr3NBqHyOwR1kRMhoj0pDJQXcy4pmfLPnA8ekx1hyf27A6KyDXeX%2FNFoMnBoqFtHWDxwOWGxvo2DLt%2BG1xgNn1LksMfqNvJ5YIVAolfNIixVTBxY2eiS66%2Fsf2pNl1i7leQCWy6ZnYBbqIFd7LS764rIkswwrfinpwY6swL7T%2Fw30pBySmHwPEjqMTZWW63Ks9YV4TdoWi2k4IZ2ul8aGwx2wL8p3GRLecSXptjpM9rKmJ8bEDPlO8HiFaDX%2Fougf3Ucs0rvVKH67kTgv2DP1kBxJZSs0C9W3xrhqwxZHW52pDjNASESqqQXkHxQ6%2F4VtVASNfHJoSgsLMf70lO%2BeqDCs%2BCwg99HaLrxBuF4dd8lCpMrOxrcFrsqKJ5qXzTfJlQDrl5cJO4%2Fm8XLY3tjFXSoPafD4CoeR5Wagu4WcDOU3iCDntIvutsXXyGz1VujT4klDnWnxL0dNQTw3Z%2Bzn0MZN%2Bru8LHx%2B5h%2FYO0DvSp3mQTVZRiEgzb53ipkVJiXvF68XngDCyZwTQrtQ7s992SMgQrw0eAbmK1h3DvnT1BMqGGzUlLVvgfbechAwV2f&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230826T134620Z&X-Amz-SignedHeaders=host&X-Amz-Expires=43200&X-Amz-Credential=ASIA4TYUK7SWBRNZAOUD%2F20230826%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c9340b8c6a77d75fc9cdac635497c6bf7455cd68ed7c26694d5a29e0bc7c5656');
+      hls.attachMedia(video);
+      video.play();
+    }
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = 'https://vidhyatech-course.s3.ap-south-1.amazonaws.com/bbfd4aa7-6671-467b-8909-7505929ad045/playlist.m3u8?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCmFwLXNvdXRoLTEiRzBFAiEAt3WVzRdcNZ4NTnokOV%2FFccGdAenn4T15lvfzIdofPtsCIAupDgAbrtPd8smjE%2B0xHvPkpdRhyXQrOv2x2%2Ba8Cn%2FqKuQCCF4QABoMODY3MDg5MTg1OTY0Igyd8TNySHxojQkWMjkqwQLvUGkgRkFPT9jU9m869xH4dyMB8jLqUVG3gGrllacbaWu8wJcTSuDGFEPcGlY0Xje25vT%2FrAlbjs5Eu2%2FHwzSG6ZYapCYaerKMf2wAUs%2Bp%2B%2F%2FrUojl6aAy7jfYP0Ei3xFYCkHbF%2F2KHCGUdyuie7ssT6gYnjbgCGCX7F4kp7%2BWdZfDXyBYDxpqC37Ah%2B6xLCZum62L%2BgjPpmNkTBJz7HPtp6iQ9YcmiJm%2BgSfKyVPJGdl4a19dv9bYP9zYtHl1phIWSa76RiOxK2QUO5gAzr3NBqHyOwR1kRMhoj0pDJQXcy4pmfLPnA8ekx1hyf27A6KyDXeX%2FNFoMnBoqFtHWDxwOWGxvo2DLt%2BG1xgNn1LksMfqNvJ5YIVAolfNIixVTBxY2eiS66%2Fsf2pNl1i7leQCWy6ZnYBbqIFd7LS764rIkswwrfinpwY6swL7T%2Fw30pBySmHwPEjqMTZWW63Ks9YV4TdoWi2k4IZ2ul8aGwx2wL8p3GRLecSXptjpM9rKmJ8bEDPlO8HiFaDX%2Fougf3Ucs0rvVKH67kTgv2DP1kBxJZSs0C9W3xrhqwxZHW52pDjNASESqqQXkHxQ6%2F4VtVASNfHJoSgsLMf70lO%2BeqDCs%2BCwg99HaLrxBuF4dd8lCpMrOxrcFrsqKJ5qXzTfJlQDrl5cJO4%2Fm8XLY3tjFXSoPafD4CoeR5Wagu4WcDOU3iCDntIvutsXXyGz1VujT4klDnWnxL0dNQTw3Z%2Bzn0MZN%2Bru8LHx%2B5h%2FYO0DvSp3mQTVZRiEgzb53ipkVJiXvF68XngDCyZwTQrtQ7s992SMgQrw0eAbmK1h3DvnT1BMqGGzUlLVvgfbechAwV2f&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230826T134620Z&X-Amz-SignedHeaders=host&X-Amz-Expires=43200&X-Amz-Credential=ASIA4TYUK7SWBRNZAOUD%2F20230826%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c9340b8c6a77d75fc9cdac635497c6bf7455cd68ed7c26694d5a29e0bc7c5656';
+      video.addEventListener('loadedmetadata', function () {
+        video.play();
+      });
+    }
+  </script>
+</body>
+</html>
