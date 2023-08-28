@@ -11,19 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
-// var AccessKeyID string
-// var SecretAccessKey string
-// var MyRegion string
-// var MyBucket string
-
-// var filepath string
-
-// This function creates session and requires AWS credentials
 func CreateSession(accessKey, secretKey, region string) (*session.Session, error) {
-	// AccessKeyID := Getenv("AWS_ACCESS_KEY_ID")
-	// AccessKeyID := Getenv("AWS_SECRET_ACCESS_KEY")
-	// MyRegion := Getenv("AWS_REGION")
-
 	sess, err := session.NewSession(
 		&aws.Config{
 			Region: aws.String(region),

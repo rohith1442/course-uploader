@@ -46,7 +46,7 @@ func socket() {
 	defer func(server *socketio.Server) {
 		err := server.Close()
 		if err != nil {
-
+			fmt.Println("Socket serveris close", err)
 		}
 	}(server)
 

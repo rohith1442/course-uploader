@@ -3,21 +3,25 @@
 set -e
 
 # Usage create-vod-hls.sh SOURCE_FILE [OUTPUT_NAME]
-[[ ! "${1}" ]] && echo "Usage: create-vod-hls.sh SOURCE_FILE [OUTPUT_NAME]" && exit 1
+# [[ ! "${1}" ]] && echo "Usage: create-vod-hls.sh SOURCE_FILE [OUTPUT_NAME]" && exit 1
 
+[[ ! "${1}" ]] && echo "Usage: create-vod-hls.sh SOURCE_FILE [OUTPUT_NAME] [RENDITIONS]" && exit 1
+
+# Extract the renditions argument from the environment variables
+renditions="${RENDITIONS}"
 # comment/add lines here to control which renditions would be created
-renditions=(
-# resolution  bitrate  audio-rate
-#  "426x240    400k    64k"
-  "640x360    800k     96k"
-  "842x480    1400k    128k"
-  "1280x720   2800k    128k"
-  "1920x1080  5000k    192k"
-)
+# renditions=(
+# # resolution  bitrate  audio-rate
+# #  "426x240    400k    64k"
+#   # "640x360    800k     96k"
+#   # "842x480    1400k    128k"
+#   # "1280x720   2800k    128k"
+#   "1920x1080  5000k    192k"
+# )
 
-segment_target_duration=10       # try to create a new segment every X seconds
-max_bitrate_ratio=1.07          # maximum accepted bitrate fluctuations
-rate_monitor_buffer_ratio=1.5   # maximum buffer size between bitrate conformance checks
+segment_target_duration=15      # try to create a new segment every X seconds
+max_bitrate_ratio=1.05          # maximum accepted bitrate fluctuations
+rate_monitor_buffer_ratio=2.0   # maximum buffer size between bitrate conformance checks
 
 #########################################################################
 
@@ -50,14 +54,19 @@ master_playlist="#EXTM3U
 #EXT-X-VERSION:3
 "
 cmd=""
-for rendition in "${renditions[@]}"; do
+# for rendition in "${renditions[@]}"; do
+for profile in ${renditions}; do
   # drop extraneous spaces
   rendition="${rendition/[[:space:]]+/ }"
 
   # rendition fields
-  resolution="$(echo ${rendition} | cut -d ' ' -f 1)"
-  bitrate="$(echo ${rendition} | cut -d ' ' -f 2)"
-  audiorate="$(echo ${rendition} | cut -d ' ' -f 3)"
+   IFS=':' read -ra profile_parts <<< "${profile}"
+  resolution="${profile_parts[0]}"
+  bitrate="${profile_parts[1]}"
+  audiorate="${profile_parts[2]}"
+  # resolution="$(echo ${rendition} | cut -d ' ' -f 1)"
+  # bitrate="$(echo ${rendition} | cut -d ' ' -f 2)"
+  # audiorate="$(echo ${rendition} | cut -d ' ' -f 3)"
 
   # calculated fields
   width="$(echo ${resolution} | grep -oE '^[[:digit:]]+')"
