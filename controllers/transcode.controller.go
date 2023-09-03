@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
-	"workspace/goproject/service"
+	"workspace/course-uploader/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

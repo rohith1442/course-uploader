@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
-	"workspace/goproject/constants"
-	"workspace/goproject/helpers"
-	"workspace/goproject/utils"
+	"workspace/course-uploader/constants"
+	"workspace/course-uploader/helpers"
+	"workspace/course-uploader/utils"
 
 	"github.com/sirupsen/logrus"
 )
@@ -19,6 +19,21 @@ import (
 type VideoService struct {
 	Logger *logrus.Logger
 }
+
+const SegmentTargetDuration float32 = 15.0
+const MaxBitrateRatio float32 = 1.05
+const RateMonitorBufferRatio float32 = 2.0
+
+// type HlsVideo struct {
+// 	rendition                 string
+// 	segment_target_duration   float32
+// 	max_bitrate_ratio         float32
+// 	rate_monitor_buffer_ratio float32
+// }
+
+// segment_target_duration=15      # try to create a new segment every X seconds
+// max_bitrate_ratio=1.05          # maximum accepted bitrate fluctuations
+// rate_monitor_buffer_ratio=2.0
 
 func (vs *VideoService) GenerateFilePath(filePath, extension, videoId, videoDir string) (string, error) {
 
@@ -79,4 +94,12 @@ func (vs *VideoService) UploadVideo(wg *sync.WaitGroup, fileName, video, bucketN
 		fmt.Println("Error uploading object to S3:", err)
 		return
 	}
+}
+
+func (vs *VideoService) CreateHls(sourcefile, targetDir, videoId, s3Host, rendition string, SegmentTargetDuration float32, MaxBitrateRatio float32, RateMonitorBufferRatio float32) {
+
+	if err := os.MkdirAll(targetDir, 0755); err != nil {
+		vs.Logger.Error("failed to create output directory", err)
+	}
+
 }

@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"workspace/goproject/controllers"
-	"workspace/goproject/service"
+	controllers "workspace/course-uploader/controllers"
+	"workspace/course-uploader/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"

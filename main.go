@@ -1,9 +1,9 @@
 package main
 
 import (
-	routes "workspace/goproject/routers"
+	routes "workspace/course-uploader/routers"
 
-	"workspace/goproject/utils"
+	"workspace/course-uploader/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

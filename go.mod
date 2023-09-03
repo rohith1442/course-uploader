@@ -1,4 +1,4 @@
-module workspace/goproject
+module workspace/course-uploader
 
 go 1.21
 
